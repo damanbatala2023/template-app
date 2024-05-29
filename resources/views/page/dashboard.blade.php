@@ -118,7 +118,13 @@
                             <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
                             <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a> -->
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item text-danger" href="{{route('logout')}} method"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                            <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-link text-danger ">
+                                    <i class="fas fa-sign-out-alt font-size-16 align-middle me-1"></i><span key="t-logout">Logout</span>
+                                </button>
+                            </form>
+
                         </div>
                     </div>
 
@@ -140,7 +146,7 @@
                         <li class="menu-title" key="t-menu">Menu</li>
 
                         <li>
-                            <a href="chat.html" class="waves-effect">
+                            <a href="/dashboard" class="waves-effect">
                                 <i class="bx bx-home-circle"></i>
                                 <span key="t-dashboards">Dashboard</span>
                             </a>
@@ -151,8 +157,8 @@
                                 <span key="t-users">Users</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="index.html" key="t-record">Records</a></li>
-                                <li><a href="dashboard-saas.html" key="t-role">Roles</a></li>
+                                <li><a href="{{route('record')}}" key="t-record">Records</a></li>
+                                <li><a href="/role" key="t-role">Roles</a></li>
                                 <!-- <li><a href="dashboard-crypto.html" key="t-crypto">Crypto</a></li>
                                 <li><a href="dashboard-blog.html" key="t-blog">Blog</a></li>
                                 <li><a href="dashboard-job.html" key="t-jobs">Jobs</a></li> -->
