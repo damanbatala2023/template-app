@@ -158,7 +158,7 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{route('record')}}" key="t-record">Records</a></li>
-                                <li><a href="/role" key="t-role">Roles</a></li>
+                                <li><a href="{{route('role')}}" key="t-role">Roles</a></li>
                                 <!-- <li><a href="dashboard-crypto.html" key="t-crypto">Crypto</a></li>
                                 <li><a href="dashboard-blog.html" key="t-blog">Blog</a></li>
                                 <li><a href="dashboard-job.html" key="t-jobs">Jobs</a></li> -->

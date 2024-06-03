@@ -13,11 +13,10 @@
             </div>
         </div>
 
-        @if(Session::has('Success'))
-        <div class="alert alert-success">{{Session::get('Success')}}</div>
-        @endif
-        @if(Session::has('Failed'))
-        <div class="alert alert-danger">{{Session::get('Failed')}}</div>
+        @if($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <strong>{{$message}}</strong>
+        </div>
         @endif
         @csrf
     </div>
@@ -39,8 +38,23 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->photo }}</td>
+                    <td>
+                        @if($user->photo)
+                        <img src="{{asset('public/pictures/'.$user->photo) }}" alt="{{ $user->name }}" width="50" height="50" class="rounded-circle">
+                        @else
+                        No photo available
+                        @endif
+                    </td>
                     <td>{{ $user->role }}</td>
+                    <td>
+                        <a href="{{ route('edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
+
+                        <form action="{{ route('delete', $user->id) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

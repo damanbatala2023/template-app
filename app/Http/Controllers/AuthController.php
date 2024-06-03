@@ -44,21 +44,29 @@ class AuthController extends Controller
     {
 
 
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $confirm_password = $request->input('confirm_password');
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        // Perform validation checks
+        if (!$name || !$email || !$password || !$confirm_password) {
+            return "Please fill in all fields.";
+        }
+        if ($password != $confirm_password) {
+            return redirect()->back()->withErrors([
+                'confirm_password' => 'Password does not match.',
+            ]);
+        }
 
-        Auth::login($user);
+        // Save the user's information to the database
+        $user = new User;
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = bcrypt($password);
+        $user->save();
 
-        return redirect('/login');
+        return redirect('/login')->withSuccess("User registered successfully!");
     }
 
     // Logout the user

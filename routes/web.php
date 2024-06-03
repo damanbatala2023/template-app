@@ -19,5 +19,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Users records
 Route::get('/record', [CrudController::class, 'getRecordForm'])->name('record');
-Route::get('/create',[CrudController::class,'getCreateForm'])->name('create');
-Route::post('/create',[CrudController::class,'postCreateForm']);
+Route::get('/create', [CrudController::class, 'getCreateForm'])->name('create');
+Route::get('/edit/{id}', [CrudController::class, 'getEditForm'])->name('edit');
+Route::post('/edit/{id}', [CrudController::class, 'postEditForm']);
+Route::post('/create', [CrudController::class, 'postCreateForm']);
+Route::get('/role', [CrudController::class, 'getRoleForm'])->name('role');
+Route::delete('/{id}', [CrudController::class, 'getDelete'])->name('delete');
+Route::put('/{id}/update-role', [CrudController::class, 'updateRole'])->name('update-role');
