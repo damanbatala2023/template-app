@@ -40,7 +40,7 @@
                     <td>{{ $user->email }}</td>
                     <td>
                         @if($user->photo)
-                        <img src="{{asset('public/pictures/'.$user->photo) }}" alt="{{ $user->name }}" width="50" height="50" class="rounded-circle">
+                        <img src="{{url('storage/'.$user->photo) }}" alt="{{ $user->name }}" width="50" height="50" class="rounded-circle">
                         @else
                         No photo available
                         @endif

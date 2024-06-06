@@ -9,6 +9,10 @@ Route::get('/', function () {
 });
 
 
+Route::get('/mo', function () {
+    return view('mo');
+});
+
 Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
@@ -25,4 +29,5 @@ Route::post('/edit/{id}', [CrudController::class, 'postEditForm']);
 Route::post('/create', [CrudController::class, 'postCreateForm']);
 Route::get('/role', [CrudController::class, 'getRoleForm'])->name('role');
 Route::delete('/{id}', [CrudController::class, 'getDelete'])->name('delete');
+Route::get('/{id}/edit-role', [CrudController::class, 'getEditRole'])->name('edit-role');
 Route::put('/{id}/update-role', [CrudController::class, 'updateRole'])->name('update-role');

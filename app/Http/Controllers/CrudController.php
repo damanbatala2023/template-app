@@ -37,18 +37,20 @@ class CrudController extends Controller
         ]);
 
 
+        // Upload image here
+        // $photo = time() . '
+        $file = $request->file('photo');
+
+        $filePath = $file->store('uploads', 'public');
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'photo' => $request->photo,
+            'photo' => $filePath,
         ]);
 
-
-        // Upload image here
-        $photo = time() . '.' . $request->photo->extension();
-        $request->photo->move(public_path('pictures'), $photo);
 
 
         Auth::login($user);
@@ -73,7 +75,7 @@ class CrudController extends Controller
         $users = User::find($id);
         $users->update($request->only('name', 'email', 'photo'));
 
-        return redirect('/edit/{id}')->withSuccess('Updated Successfully');
+        return redirect('/record')->withSuccess('Updated Successfully');
     }
 
     public function getDelete($id)
@@ -86,19 +88,32 @@ class CrudController extends Controller
     public function getRoleForm()
     {
         $users = User::all();
+
         return view('page.roles', compact('users'));
     }
 
+    public function getEditRole($id)
+    {
+        $user = User::findOrFail($id);
 
+        return view('page.edit-role', compact('user'));
+    }
 
 
     public function updateRole(Request $request, $id)
     {
-        $user = User::findOrFail($id);
 
-        $user->role = $request->input('role');
-        $user->save();
 
-        return redirect()->route('page.role')->with('success', 'Role updated successfully');
+        $user = User::where('id', $id)->first();
+
+        if ($user) {
+
+            $user->role = $request->role;
+            $user->update();
+
+            return redirect()->route('role')->with('success', 'Role updated successfully');
+        } else {
+            return redirect()->route('role')->with('message', 'No user found');
+        }
     }
 }
